@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/paris-mask-app/static/css/main.75794ce2.chunk.css",
-    "main.js": "/paris-mask-app/static/js/main.42e9bb73.chunk.js",
-    "main.js.map": "/paris-mask-app/static/js/main.42e9bb73.chunk.js.map",
-    "runtime-main.js": "/paris-mask-app/static/js/runtime-main.a8345d4f.js",
-    "runtime-main.js.map": "/paris-mask-app/static/js/runtime-main.a8345d4f.js.map",
-    "static/js/2.5befd52d.chunk.js": "/paris-mask-app/static/js/2.5befd52d.chunk.js",
-    "static/js/2.5befd52d.chunk.js.map": "/paris-mask-app/static/js/2.5befd52d.chunk.js.map",
-    "index.html": "/paris-mask-app/index.html",
-    "precache-manifest.a1dc02fb9094518e0ad690e930829a65.js": "/paris-mask-app/precache-manifest.a1dc02fb9094518e0ad690e930829a65.js",
-    "service-worker.js": "/paris-mask-app/service-worker.js",
-    "static/css/main.75794ce2.chunk.css.map": "/paris-mask-app/static/css/main.75794ce2.chunk.css.map",
-    "static/js/2.5befd52d.chunk.js.LICENSE.txt": "/paris-mask-app/static/js/2.5befd52d.chunk.js.LICENSE.txt"
+    "main.css": "/static/css/main.75794ce2.chunk.css",
+    "main.js": "/static/js/main.af9e108f.chunk.js",
+    "main.js.map": "/static/js/main.af9e108f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.bfaa4840.js",
+    "runtime-main.js.map": "/static/js/runtime-main.bfaa4840.js.map",
+    "static/js/2.5befd52d.chunk.js": "/static/js/2.5befd52d.chunk.js",
+    "static/js/2.5befd52d.chunk.js.map": "/static/js/2.5befd52d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.1fb70a01a4a4b589399cd98f0946fe6c.js": "/precache-manifest.1fb70a01a4a4b589399cd98f0946fe6c.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.75794ce2.chunk.css.map": "/static/css/main.75794ce2.chunk.css.map",
+    "static/js/2.5befd52d.chunk.js.LICENSE.txt": "/static/js/2.5befd52d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a8345d4f.js",
+    "static/js/runtime-main.bfaa4840.js",
     "static/js/2.5befd52d.chunk.js",
     "static/css/main.75794ce2.chunk.css",
-    "static/js/main.42e9bb73.chunk.js"
+    "static/js/main.af9e108f.chunk.js"
   ]
 }
