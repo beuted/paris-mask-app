@@ -130,7 +130,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <div id="map" className="map"></div>
       <header className={ (shouldWearMask ? 'mask-on' : 'mask-off') + ' app-header' }>
         zones de port du masque
