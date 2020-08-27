@@ -38,6 +38,8 @@ const maskZoneStyle =
 
 function App() {
   const [shouldWearMask, setShouldWearMask] = useState(false);
+  const [showInstallPromotion, setShowInstallPromotion] = useState(false);
+
 
   const init = async () => {
     let polygones = await fetchMaskZones();
@@ -72,38 +74,6 @@ function App() {
       style: maskZoneStyle,
     });
 
-    var geolocation = new Geolocation({
-      // enableHighAccuracy must be set to true to have the heading value.
-      trackingOptions: {
-        enableHighAccuracy: true,
-      },
-      projection: 'EPSG:3857',
-    });
-
-    geolocation.setTracking(true);
-
-    // update the HTML page when the position changes.
-    geolocation.on('change', function () {
-      let position = geolocation.getPosition();
-      if (!position)
-        return;
-      var pt = turf.point(position);
-      var poly = turf.polygon(polygones);
-
-      var isInZone = turf.booleanPointInPolygon(pt, poly)
-
-      //vibrate on transition
-      if (isInZone && !shouldWearMask)
-        window.navigator.vibrate(300);
-
-      setShouldWearMask(isInZone);
-    });
-
-    // handle geolocation error.
-    geolocation.on('error', function (error) {
-     console.warn('geolocation error', error);
-    });
-
     const source = new OSM();
 
     var map = new Map({
@@ -122,19 +92,86 @@ function App() {
       controls: []
     });
 
-    maskZonesLayer.on('postrender', (event) => drawPosition(event, geolocation));
+    var geolocation = new Geolocation({
+      // enableHighAccuracy must be set to true to have the heading value.
+      trackingOptions: {
+        enableHighAccuracy: true,
+      },
+      projection: 'EPSG:3857',
+    });
+
+    geolocation.setTracking(true);
+
+    // update the HTML page when the position changes.
+    geolocation.on('change', function () {
+      let position = geolocation.getPosition();
+      if (!position)
+        return;
+
+      var pt = turf.point(position);
+
+      var isInZone = false;
+      for (const polygone of polygones) {
+        var poly = turf.polygon([polygone]);
+        isInZone = isInZone || turf.booleanPointInPolygon(pt, poly);
+        if (isInZone) break;
+      }
+
+      //vibrate on transition
+      if (isInZone && !shouldWearMask)
+        window.navigator.vibrate(300);
+
+      setShouldWearMask(isInZone);
+
+      map.render();
+    });
+
+    // handle geolocation error.
+    geolocation.on('error', function (error) {
+     console.warn('geolocation error', error);
+    });
+
+    maskZonesLayer.on('postrender', (event) => drawPosition(event, geolocation /*geolocation*/ ));
   }
 
   useEffect(() => {
     init();
   }, []);
 
+  ///////////////////////
+  //PWA stuff to be moved
+
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update UI notify the user they can install the PWA
+    setShowInstallPromotion(true);
+  });
+
+  function installPwa() {
+    // Hide the app provided install promotion
+    setShowInstallPromotion(false);
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+    });
+  }
+
   return (
     <div className="app">
       <div id="map" className="map"></div>
-      <header className={ (shouldWearMask ? 'mask-on' : 'mask-off') + ' app-header' }>
-        zones de port du masque
-      </header>
+      <header className={ (shouldWearMask ? 'mask-on' : 'mask-off') + ' app-header' }></header>
+      {showInstallPromotion ? <footer className='install-footer' onClick={installPwa}>Install as an App</footer> : null}
+
     </div>
   );
 }
@@ -154,5 +191,7 @@ function drawPosition(event, geolocation) {
   var feature = new Feature(currentPoint);
   vectorContext.drawFeature(feature, geoMarkerStyle);
 };
+
+//Test lat long : (48.857351 , 2.337242)
 
 export default App;

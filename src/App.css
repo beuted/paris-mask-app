@@ -16,11 +16,28 @@
 
 .mask-on {
   background-color: red;
+
+}
+.mask-on:after {
+  content: 'Portez un masque 😷'
 }
 .mask-off {
   background-color: green;
 }
+.mask-off:after {
+  content: 'Pas d\'obligation 😌'
+}
 
 .map {
   height: 100vh;
+}
+
+.install-footer {
+  position: fixed;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  background-color: aqua;
+  text-align: center;
+  cursor: pointer;
 }
