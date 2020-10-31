@@ -6,7 +6,8 @@
     {
       "src": "https://beuted.github.io/paris-mask-app/icon-192x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "https://beuted.github.io/paris-mask-app/icon-512x512.png",
