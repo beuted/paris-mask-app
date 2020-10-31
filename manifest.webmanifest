@@ -4,17 +4,17 @@
   "description": "Tells you where you can go",
   "icons": [
     {
-      "src": "icon-192x192.png",
+      "src": "https://beuted.github.io/paris-mask-app/icon-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "https://beuted.github.io/paris-mask-app/icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "/?source=pwa",
+  "start_url": "https://beuted.github.io/paris-mask-app/?source=pwa",
   "background_color": "#3367D6",
   "display": "standalone",
   "scope": "/",
