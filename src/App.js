@@ -136,7 +136,8 @@ function App() {
   ///////////////////////
   //PWA stuff to be moved
 
-  let deferredPrompt;
+  //setShowInstallPromotion(true);
+  /*let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
     // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
@@ -159,7 +160,7 @@ function App() {
         console.log('User dismissed the install prompt');
       }
     });
-  }
+  }*/
 
   function changeCirclePositionWithCurrentPosition() {
     setCircleCenter(geolocation.getPosition());
