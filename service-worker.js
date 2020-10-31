@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/paris-mask-app/precache-manifest.b7a0924bc37aa71c29c58d9e1f7aadb2.js"
+  "/paris-mask-app/precache-manifest.7070763270ba7ff0f0da404dcb956633.js"
 );
 
 self.addEventListener('message', (event) => {
