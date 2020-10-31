@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Map from 'ol/Map';
+import { fromCircle } from 'ol/geom/Polygon';
 import View from 'ol/View';
 import Tile from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import OSM from 'ol/source/OSM';
-import { fromLonLat, toLonLat, getPointResolution } from 'ol/proj';
+import { fromLonLat, toLonLat, getPointResolution, transform } from 'ol/proj';
+import { METERS_PER_UNIT } from 'ol/proj/Units';
 import GeoJSON from 'ol/format/GeoJSON';
 import Style from 'ol/style/Style';
 import Stroke from 'ol/style/Stroke';
@@ -16,6 +18,7 @@ import Geolocation from 'ol/Geolocation';
 import {getVectorContext} from 'ol/render';
 import Point from 'ol/geom/Point';
 import Circle from 'ol/geom/Circle';
+import { getDistance } from 'ol/sphere';
 
 import Feature from 'ol/Feature';
 import * as turf from '@turf/turf'
@@ -35,13 +38,25 @@ function App() {
   const [circleLayer, setCircleLayer] = useState(null);
   const [map, setMap] = useState(null);
 
+  const oneKmInParisInThisFuckingProjection = 1500;
+
   const init = async () => {
-    const source = new OSM();
+    const circleCenterString = localStorage.getItem('circleCenter');
+
+    var circleCenter = null;
+    if (circleCenterString) {
+      var circleCenter = JSON.parse(circleCenterString);
+      if (!Array.isArray(circleCenter))
+        circleCenter = null;
+    }
+    setCircleCenter(circleCenter);
+
+    const source = new OSM({crossOrigin: null});
     const tileLayer = new Tile({
       source: source
     });
 
-    const circleLayer = drawCircleInMeter(fromLonLat([2.337242, 48.857351]), 1200);
+    const circleLayer = drawCircleInMeter(circleCenter, oneKmInParisInThisFuckingProjection);
 
     var map = new Map({
       target: 'map',
@@ -52,7 +67,7 @@ function App() {
       ],
       view: new View({
         projection: 'EPSG:3857',
-        center: fromLonLat([2.3488, 48.8534]),
+        center: circleCenter ? circleCenter : fromLonLat([2.3488, 48.8534]),
         zoom: 13
       }),
       controls: []
@@ -95,8 +110,11 @@ function App() {
   }, [geolocation, map]);
 
   useEffect(() => {
-    if (circleCenter)
-      changeCirclePosition(circleCenter, 1500, circleLayer);
+    if (circleCenter) {
+      changeCirclePosition(circleCenter, oneKmInParisInThisFuckingProjection, circleLayer);
+      localStorage.setItem('circleCenter', JSON.stringify(circleCenter));
+      map.getView().animate({center: circleCenter});
+    }
   }, [circleCenter, circleLayer]);
 
   useEffect(() => {
@@ -150,11 +168,16 @@ function App() {
     setCircleCenter(geolocation.getPosition());
   }
 
+  function recenterView() {
+    map.getView().animate({center: circleCenter});
+  }
+
   return (
     <div className="app">
       <div id="map" className="map"></div>
-      <header className={ (zoneOk ? 'zone-ok' : 'zone-nok') + ' app-header' }></header>
-      <div className="use-position" onClick={changeCirclePositionWithCurrentPosition}>Use Position</div>
+      <header className={ (circleCenter == null ? 'need-click' : zoneOk ? 'zone-ok' : 'zone-nok') + ' app-header' }></header>
+      <div className={`use-position ${circleCenter == null ? 'need-click' : ''}`} onClick={changeCirclePositionWithCurrentPosition}>🏠</div>
+      <div className={`center-view`} onClick={recenterView}>🎯</div>
       {showInstallPromotion ? <footer className='install-footer' onClick={installPwa}>Install as an App</footer> : null}
 
     </div>
@@ -181,9 +204,22 @@ const geoMarkerStyle = new Style({
 });
 
 
-var drawCircleInMeter = (pos, radius) => {
-  var circle = new Circle(pos, radius);
-  var circleFeature = new Feature(circle);
+var drawCircleInMeter = (center, radius) => {
+  var edgeCoordinate = [center[0] + radius, center[1]];
+  var groundRadius = getDistance(
+      transform(center, 'EPSG:3857', 'EPSG:4326'),
+      transform(edgeCoordinate, 'EPSG:3857', 'EPSG:4326'),
+      6378137 // earth radius
+  );
+
+  var circleFeature;
+  if (center) {
+    var circle = new Circle(center, groundRadius);
+    circleFeature = new Feature(circle);
+  } else {
+    circleFeature = new Feature();
+  }
+
   var vectorSource = new VectorSource({
     features: [circleFeature],
     projection: 'EPSG:3857',
