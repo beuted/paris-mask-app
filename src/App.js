@@ -109,7 +109,7 @@ function App() {
     const isInZone = distance < 1;
 
     //vibrate on transition
-    if (isInZone && !zoneOk)
+    if (!isInZone && zoneOk)
       window.navigator.vibrate(300);
 
     setZoneOk(isInZone);
