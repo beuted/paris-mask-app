@@ -25,9 +25,6 @@ import * as turf from '@turf/turf'
 
 //TODO: fix les 1500 km
 //TODO: fair emarcher reactive app
-//TODO fair emarche rle vibreur
-//TODO mieux gérer le init state
-//TODO: faire en sorte que ca sauvegarde ton dernier cercle
 
 function App() {
   const [zoneOk, setZoneOk] = useState(false);
@@ -205,16 +202,9 @@ const geoMarkerStyle = new Style({
 
 
 var drawCircleInMeter = (center, radius) => {
-  var edgeCoordinate = [center[0] + radius, center[1]];
-  var groundRadius = getDistance(
-      transform(center, 'EPSG:3857', 'EPSG:4326'),
-      transform(edgeCoordinate, 'EPSG:3857', 'EPSG:4326'),
-      6378137 // earth radius
-  );
-
   var circleFeature;
   if (center) {
-    var circle = new Circle(center, groundRadius);
+    var circle = new Circle(center, radius);
     circleFeature = new Feature(circle);
   } else {
     circleFeature = new Feature();
