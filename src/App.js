@@ -18,23 +18,6 @@ import Point from 'ol/geom/Point';
 import Feature from 'ol/Feature';
 import * as turf from '@turf/turf'
 
-const maskZoneStyle =
-  new Style({
-    fill: new Fill({
-      color: 'rgba(0, 0, 255, 0.3)',
-    }),
-  });
-
-  const geoMarkerStyle = new Style({
-  image: new CircleStyle({
-    radius: 7,
-    fill: new Fill({color: 'black'}),
-    stroke: new Stroke({
-      color: 'white',
-      width: 2,
-    }),
-  })
-});
 
 function App() {
   const [shouldWearMask, setShouldWearMask] = useState(false);
@@ -43,36 +26,7 @@ function App() {
 
   const init = async () => {
     let polygones = await fetchMaskZones();
-
-    let geojsonObject = {
-      'type': 'FeatureCollection',
-      'crs': {
-        'type': 'name',
-        'properties': {
-          'name': 'EPSG:3857', //EPSG:3857
-          'center': [0, 0],
-        },
-      },
-      'features': [
-        {
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Polygon',
-            'coordinates':
-              polygones,
-          },
-        },
-      ]
-    };
-
-    var maskZonesVectorSource = new VectorSource({
-      features: new GeoJSON().readFeatures(geojsonObject),
-    });
-
-    var maskZonesLayer = new VectorLayer({
-      source: maskZonesVectorSource,
-      style: maskZoneStyle,
-    });
+    var maskZonesLayer = await getMaskLayer(polygones);
 
     const source = new OSM();
 
@@ -180,6 +134,56 @@ async function fetchMaskZones() {
   var response = await fetch("https://opendata.paris.fr/api/records/1.0/search/?dataset=coronavirus-port-du-masque-obligatoire-lieux-places-et-marches&q=&rows=100&facet=nom_long&facet=ardt");
   var res = await response.json();
   return res.records.map(record => record.fields.geo_shape.coordinates[0].map(x => (fromLonLat(x))));
+}
+
+const maskZoneStyle =
+  new Style({
+    fill: new Fill({
+      color: 'rgba(0, 0, 255, 0.3)',
+    }),
+  });
+
+  const geoMarkerStyle = new Style({
+  image: new CircleStyle({
+    radius: 7,
+    fill: new Fill({color: 'black'}),
+    stroke: new Stroke({
+      color: 'white',
+      width: 2,
+    }),
+  })
+});
+
+async function getMaskLayer(polygones) {
+  let geojsonObject = {
+    'type': 'FeatureCollection',
+    'crs': {
+      'type': 'name',
+      'properties': {
+        'name': 'EPSG:3857', //EPSG:3857
+        'center': [0, 0],
+      },
+    },
+    'features': [
+      {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Polygon',
+          'coordinates':
+            polygones,
+        },
+      },
+    ]
+  };
+
+  var maskZonesVectorSource = new VectorSource({
+    features: new GeoJSON().readFeatures(geojsonObject),
+  });
+
+  return new VectorLayer({
+    source: maskZonesVectorSource,
+    style: maskZoneStyle,
+  });
 }
 
 function drawPosition(event, geolocation) {
