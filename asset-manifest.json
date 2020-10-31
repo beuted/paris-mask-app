@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/paris-mask-app/static/css/main.a5a574e5.chunk.css",
-    "main.js": "/paris-mask-app/static/js/main.2291b0ce.chunk.js",
-    "main.js.map": "/paris-mask-app/static/js/main.2291b0ce.chunk.js.map",
+    "main.js": "/paris-mask-app/static/js/main.d0a3d506.chunk.js",
+    "main.js.map": "/paris-mask-app/static/js/main.d0a3d506.chunk.js.map",
     "runtime-main.js": "/paris-mask-app/static/js/runtime-main.a8345d4f.js",
     "runtime-main.js.map": "/paris-mask-app/static/js/runtime-main.a8345d4f.js.map",
-    "static/js/2.ad502cfe.chunk.js": "/paris-mask-app/static/js/2.ad502cfe.chunk.js",
-    "static/js/2.ad502cfe.chunk.js.map": "/paris-mask-app/static/js/2.ad502cfe.chunk.js.map",
+    "static/js/2.c00c6a85.chunk.js": "/paris-mask-app/static/js/2.c00c6a85.chunk.js",
+    "static/js/2.c00c6a85.chunk.js.map": "/paris-mask-app/static/js/2.c00c6a85.chunk.js.map",
     "index.html": "/paris-mask-app/index.html",
-    "precache-manifest.05baaf98e1e87469a82aa74431c47880.js": "/paris-mask-app/precache-manifest.05baaf98e1e87469a82aa74431c47880.js",
+    "precache-manifest.2313eafbb9194a57bae93e62168b1426.js": "/paris-mask-app/precache-manifest.2313eafbb9194a57bae93e62168b1426.js",
     "service-worker.js": "/paris-mask-app/service-worker.js",
     "static/css/main.a5a574e5.chunk.css.map": "/paris-mask-app/static/css/main.a5a574e5.chunk.css.map",
-    "static/js/2.ad502cfe.chunk.js.LICENSE.txt": "/paris-mask-app/static/js/2.ad502cfe.chunk.js.LICENSE.txt"
+    "static/js/2.c00c6a85.chunk.js.LICENSE.txt": "/paris-mask-app/static/js/2.c00c6a85.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a8345d4f.js",
-    "static/js/2.ad502cfe.chunk.js",
+    "static/js/2.c00c6a85.chunk.js",
     "static/css/main.a5a574e5.chunk.css",
-    "static/js/main.2291b0ce.chunk.js"
+    "static/js/main.d0a3d506.chunk.js"
   ]
 }
