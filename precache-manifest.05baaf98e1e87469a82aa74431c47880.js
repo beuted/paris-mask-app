@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1a5e21c5b51ee92cdc86986c2ea0a843",
+    "revision": "14d540773d51570e4c3ec7cb409a1eff",
     "url": "/paris-mask-app/index.html"
   },
   {
-    "revision": "cc36ca4738dc8395d5a8",
+    "revision": "4ec0da63710e99fc55f6",
     "url": "/paris-mask-app/static/css/main.a5a574e5.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/paris-mask-app/static/js/2.ad502cfe.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cc36ca4738dc8395d5a8",
-    "url": "/paris-mask-app/static/js/main.11e6059d.chunk.js"
+    "revision": "4ec0da63710e99fc55f6",
+    "url": "/paris-mask-app/static/js/main.2291b0ce.chunk.js"
   },
   {
     "revision": "1a2d2d658fb768a359ca",
