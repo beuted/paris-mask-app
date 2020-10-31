@@ -28,7 +28,7 @@ import * as turf from '@turf/turf'
 
 function App() {
   const [zoneOk, setZoneOk] = useState(false);
-  const [showInstallPromotion, setShowInstallPromotion] = useState(false);
+  //const [showInstallPromotion, setShowInstallPromotion] = useState(false);
   const [circleCenter, setCircleCenter] = useState(null);
   const [position, setPosition] = useState(null);
   const [geolocation, setGeolocation] = useState(null);
@@ -176,7 +176,6 @@ function App() {
       <header className={ (circleCenter == null ? 'need-click' : zoneOk ? 'zone-ok' : 'zone-nok') + ' app-header' }></header>
       <div className={`use-position ${circleCenter == null ? 'need-click' : ''}`} onClick={changeCirclePositionWithCurrentPosition}>🏠</div>
       <div className={`center-view`} onClick={recenterView}>🎯</div>
-      {showInstallPromotion ? <footer className='install-footer' onClick={installPwa}>Install as an App</footer> : null}
 
     </div>
   );
