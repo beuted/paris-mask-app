@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1bbccb1044e6301f18e04b4d1c22eb18",
+    "revision": "052fb55a44f443517f9444c77ecb3fc0",
     "url": "/paris-mask-app/index.html"
   },
   {
