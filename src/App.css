@@ -32,7 +32,7 @@
   background-color: red;
 }
 .need-click:after {
-  content: 'click the 🎯 to set your home location'
+  content: 'click the 🏠 to set your home location'
 }
 
 .map {
