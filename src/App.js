@@ -174,8 +174,8 @@ function App() {
     <div className="app">
       <div id="map" className="map"></div>
       <header className={ (circleCenter == null ? 'need-click' : zoneOk ? 'zone-ok' : 'zone-nok') + ' app-header' }></header>
-      <div className={`use-position ${circleCenter == null ? 'need-click' : ''}`} onClick={changeCirclePositionWithCurrentPosition}>🎯</div>
-      <div className={`center-view`} onClick={recenterView}>🏠</div>
+      <div className={`use-position ${circleCenter == null ? 'need-click' : ''}`} onClick={changeCirclePositionWithCurrentPosition}>🏠</div>
+      <div className={`center-view`} onClick={recenterView}>🎯</div>
 
     </div>
   );
